@@ -15,6 +15,10 @@
 
 ## Changelog
 
+### 3/12/2021
+
+- Added automatic tool repair functionality
+
 ### 2/12/2021
 
 - The bot is running with minimal functionality
