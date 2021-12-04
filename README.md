@@ -12,8 +12,14 @@
 ## Current functionality
 
 - Presses the "Mine" button on one instrument
+- If the strength of the tool is less than 10%, the bot fixes the tool
+- If it is possible to restore energy, the bot restores it
 
 ## Changelog
+
+### 4/12/2021
+
+- Added automatic energy retrieval
 
 ### 3/12/2021
 

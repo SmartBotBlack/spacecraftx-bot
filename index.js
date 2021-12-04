@@ -1,58 +1,137 @@
 (async () => {
+  const randomInt = (min, max) =>
+    Math.floor(Math.random() * (max - min + 1) + min);
+
   while (1) {
-    // Find button mine
-    const buttonMine = [...document.querySelectorAll("button")].find(
-      (button) =>
-        button.innerText === "MINE" &&
-        getComputedStyle(button).opacity !== "0.6"
+    /**
+     * Coins
+     */
+    const coinCounter = [...document.querySelectorAll("div")].find((div) =>
+      [...div.classList].some((className) =>
+        className.includes("Header_headerLine")
+      )
+    );
+    const [SCIC, SCID, SCIW] = [...coinCounter.children].map(
+      (child) => +child.textContent
     );
 
-    //  Click Button mine
-    buttonMine.click();
-
-    await new Promise((res) => setTimeout(res, 10 * 1000));
-
     /**
-     * Restore Energy
+     * Restore energy
      */
-    // Get current energy
-    const [energyCurrent, energyMax] = [...document.querySelectorAll("div")]
-      .find((div) =>
-        [...div.classList].find((className) =>
-          className.includes("AssetView_assetStatusBar")
+    try {
+      const energyBtn = [...document.querySelectorAll("div")].find((div) =>
+        [...div.classList].some((className) =>
+          className.includes("BuyEnergy_buyEnergyText")
         )
-      )
-      .innerText.split("/");
-
-    // If current energy less than 10%
-    if (energyCurrent / energyMax < 0.1) {
-      const buttonRepair = [...document.querySelectorAll("button")].find(
-        (button) =>
-          button.innerText === "REPAIR" &&
-          [...button.classList].some((className) =>
-            className.includes("Button_default_alternative_button")
-          )
       );
+      const [energyCurrent, energyMax] = energyBtn.innerText
+        .split("/")
+        .map(Number);
 
-      await new Promise((res) => setTimeout(res, 10 * 1000));
+      console.log("!!!", energyCurrent, energyMax, SCIW);
 
-      // Repair
-      buttonRepair.click();
+      if (energyCurrent < energyMax && SCIW > 10) {
+        energyBtn.click();
+        await new Promise((res) => setTimeout(res, randomInt(5, 15) * 1000));
 
-      await new Promise((res) => setTimeout(res, 10 * 1000));
+        // Find plus button
+        const plusEnergyBtn = [...document.querySelectorAll("div")].find(
+          (div) =>
+            [...div.classList].some((className) =>
+              className.includes("BuyEnergyPopup_buyPlusButton")
+            )
+        );
 
-      const buttonConfirmRepair = [...document.querySelectorAll("button")].find(
-        (button) =>
-          button.innerText === "REPAIR" &&
-          [...button.classList].some((className) =>
-            className.includes("Button_default_button")
+        for (let i = 0; i < Math.min(SCIW, 10); ++i) {
+          plusEnergyBtn.click();
+          await new Promise((res) => setTimeout(res, randomInt(1, 3) * 1000));
+        }
+
+        // Find Exchange button
+        const exchangeEnergyBtn = [...document.querySelectorAll("div")]
+          .find(
+            (div) =>
+              [...div.classList].some((className) =>
+                className.includes("PopupExchangeLayout_popupFooter")
+              ) && div.innerText === "EXCHANGE"
           )
-      );
+          .querySelector("button");
 
-      // Confirm rapir
-      buttonConfirmRepair.click();
+        exchangeEnergyBtn.click();
+
+        await new Promise((res) => setTimeout(res, randomInt(5, 15) * 1000));
+      }
+    } catch (e) {
+      console.error("Restore energy error", e);
     }
 
-    await new Promise((res) => setTimeout(res, 10 * 1000));
+    try {
+      // Find button mine
+      const buttonMine = [...document.querySelectorAll("button")].find(
+        (button) =>
+          button.innerText === "MINE" &&
+          getComputedStyle(button).opacity !== "0.6"
+      );
+
+      //  Click Button mine
+      if (buttonMine) {
+        buttonMine.click();
+
+        await new Promise((res) => setTimeout(res, randomInt(5, 15) * 1000));
+      }
+    } catch (e) {
+      console.error("Mine error", e);
+    }
+
+    /**
+     * Repair
+     */
+    try {
+      // Get current compensation
+      const [energyCurrent, energyMax] = [...document.querySelectorAll("div")]
+        .find((div) =>
+          [...div.classList].find((className) =>
+            className.includes("AssetView_assetStatusBar")
+          )
+        )
+        .innerText.split("/");
+
+      // If current compensation less than 10%
+      if (energyCurrent / energyMax < 0.1) {
+        const buttonRepair = [...document.querySelectorAll("button")].find(
+          (button) =>
+            button.innerText === "REPAIR" &&
+            [...button.classList].some((className) =>
+              className.includes("Button_default_alternative_button")
+            )
+        );
+
+        await new Promise((res) => setTimeout(res, randomInt(5, 15) * 1000));
+
+        // Repair
+        buttonRepair.click();
+
+        await new Promise((res) => setTimeout(res, randomInt(5, 15) * 1000));
+
+        const buttonConfirmRepair = [
+          ...document.querySelectorAll("button"),
+        ].find(
+          (button) =>
+            button.innerText === "REPAIR" &&
+            [...button.classList].some((className) =>
+              className.includes("Button_default_button")
+            )
+        );
+
+        // Confirm rapir
+        buttonConfirmRepair.click();
+
+        await new Promise((res) => setTimeout(res, randomInt(5, 15) * 1000));
+      }
+    } catch (e) {
+      console.error("Repair Error", e);
+    }
+
+    await new Promise((res) => setTimeout(res, randomInt(5, 15) * 1000));
   }
 })();
