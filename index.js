@@ -116,8 +116,6 @@
               )
           );
 
-          await new Promise((res) => setTimeout(res, randomInt(5, 15) * 1000));
-
           // Repair
           buttonRepair.click();
 
