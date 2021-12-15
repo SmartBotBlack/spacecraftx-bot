@@ -30,7 +30,7 @@
 
       console.log("!!!", energyCurrent, energyMax, SCIW);
 
-      if (energyCurrent < energyMax && SCIW > 10) {
+      if (energyCurrent < energyMax - 100 && SCIW > 10) {
         energyBtn.click();
         await new Promise((res) => setTimeout(res, randomInt(5, 15) * 1000));
 
