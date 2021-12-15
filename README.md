@@ -1,5 +1,9 @@
 # Space CraftX Bot Free
 
+## Video instruction
+
+https://youtu.be/_0NEZHZwMLg
+
 ## Instalation guide
 
 1. Open the game and log in.
