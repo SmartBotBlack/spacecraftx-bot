@@ -21,17 +21,21 @@ https://youtu.be/_0NEZHZwMLg
 
 ## Changelog
 
+### 15/12/2021
+
+- Added the possibility to work with several tools.
+
 ### 4/12/2021
 
-- Added automatic energy retrieval
+- Added automatic energy retrieval.
 
 ### 3/12/2021
 
-- Added automatic tool repair functionality
+- Added automatic tool repair functionality.
 
 ### 2/12/2021
 
-- The bot is running with minimal functionality
+- The bot is running with minimal functionality.
 
 ## Support
 
